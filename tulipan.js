@@ -1,12 +1,9 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-
-// Mover el punto de origen al centro inferior y aplicar escala
 ctx.translate(canvas.width / 2, canvas.height * 0.75);
-ctx.scale(1.2, 1.2);
 ctx.lineWidth = 2;
 
-function animateSteps(steps, delay = 400) {
+function animateSteps(steps, delay = 450) {
   let i = 0;
   function next() {
     if (i < steps.length) {
@@ -17,69 +14,93 @@ function animateSteps(steps, delay = 400) {
   next();
 }
 
-function drawTulip() {
+function drawTulipan() {
   const steps = [];
 
-  // Hoja izquierda
+  // Pétalos superiores (simplificados)
+  steps.push(() => {
+    ctx.fillStyle = "red";
+    ctx.strokeStyle = "#8B0000";
+    ctx.beginPath();
+    ctx.moveTo(24, -500);
+    ctx.bezierCurveTo(0, -540, -30, -540, -24, -500);
+    ctx.bezierCurveTo(-10, -480, 10, -480, 24, -500);
+    ctx.fill();
+  });
+
   steps.push(() => {
     ctx.beginPath();
-    ctx.fillStyle = "#00FF00";
-    ctx.moveTo(0, 150);
-    ctx.bezierCurveTo(-120, 60, -90, -80, 0, -160);
-    ctx.lineTo(0, 150);
+    ctx.moveTo(0, -500);
+    ctx.bezierCurveTo(-20, -550, -60, -520, -40, -470);
+    ctx.bezierCurveTo(-10, -460, 10, -470, 0, -500);
+    ctx.fill();
+  });
+
+  steps.push(() => {
+    ctx.beginPath();
+    ctx.moveTo(-48, -470);
+    ctx.bezierCurveTo(-90, -420, -60, -380, -20, -400);
+    ctx.bezierCurveTo(-10, -430, -30, -460, -48, -470);
+    ctx.fill();
+  });
+
+  // Cáliz central
+  steps.push(() => {
+    ctx.beginPath();
+    ctx.moveTo(12, -390);
+    ctx.bezierCurveTo(40, -410, 40, -460, 10, -480);
+    ctx.bezierCurveTo(-10, -470, -10, -430, 12, -390);
+    ctx.fill();
+  });
+
+  // Flor inferior izquierda
+  steps.push(() => {
+    ctx.beginPath();
+    ctx.moveTo(-53, -300);
+    ctx.bezierCurveTo(-100, -250, -90, -200, -40, -220);
+    ctx.bezierCurveTo(-30, -250, -30, -280, -53, -300);
+    ctx.fill();
+  });
+
+  // Flor inferior derecha
+  steps.push(() => {
+    ctx.beginPath();
+    ctx.moveTo(0, -300);
+    ctx.bezierCurveTo(50, -250, 70, -200, 20, -180);
+    ctx.bezierCurveTo(0, -200, -10, -250, 0, -300);
+    ctx.fill();
+  });
+
+  // Hoja izquierda (verde)
+  steps.push(() => {
+    ctx.fillStyle = "green";
+    ctx.beginPath();
+    ctx.moveTo(15, -5);
+    ctx.bezierCurveTo(-20, -80, -80, -120, -60, -200);
+    ctx.bezierCurveTo(-40, -160, -10, -100, 15, -5);
     ctx.fill();
   });
 
   // Hoja derecha
   steps.push(() => {
     ctx.beginPath();
-    ctx.moveTo(0, 150);
-    ctx.bezierCurveTo(120, 60, 90, -80, 0, -160);
-    ctx.lineTo(0, 150);
+    ctx.moveTo(10, -30);
+    ctx.bezierCurveTo(60, -90, 80, -160, 10, -210);
+    ctx.bezierCurveTo(5, -180, 5, -100, 10, -30);
     ctx.fill();
   });
 
-  // Tallo
+  // Base y tallo
   steps.push(() => {
     ctx.beginPath();
-    ctx.fillStyle = "#00AA00";
-    ctx.moveTo(-6, -160);
-    ctx.lineTo(-6, -320);
-    ctx.lineTo(6, -320);
-    ctx.lineTo(6, -160);
-    ctx.closePath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(-5, -320);
+    ctx.lineTo(5, -320);
+    ctx.lineTo(0, 0);
     ctx.fill();
   });
 
-  // Pétalo izquierdo
-  steps.push(() => {
-    ctx.beginPath();
-    ctx.fillStyle = "#FF00FF";
-    ctx.moveTo(0, -320);
-    ctx.bezierCurveTo(-30, -370, -50, -430, 0, -480);
-    ctx.bezierCurveTo(-20, -440, -10, -380, 0, -320);
-    ctx.fill();
-  });
-
-  // Pétalo derecho
-  steps.push(() => {
-    ctx.beginPath();
-    ctx.moveTo(0, -320);
-    ctx.bezierCurveTo(30, -370, 50, -430, 0, -480);
-    ctx.bezierCurveTo(20, -440, 10, -380, 0, -320);
-    ctx.fill();
-  });
-
-  // Pétalo central
-  steps.push(() => {
-    ctx.beginPath();
-    ctx.moveTo(0, -320);
-    ctx.bezierCurveTo(-10, -400, -10, -440, 0, -470);
-    ctx.bezierCurveTo(10, -440, 10, -400, 0, -320);
-    ctx.fill();
-  });
-
-  animateSteps(steps, 400);
+  animateSteps(steps);
 }
 
-drawTulip();
+drawTulipan();
