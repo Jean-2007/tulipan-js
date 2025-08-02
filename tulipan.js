@@ -1,10 +1,12 @@
-
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-ctx.translate(canvas.width / 2, canvas.height / 2);
-ctx.lineWidth = 3;
 
-function animateSteps(steps, delay = 350) {
+// Mover el punto de origen al centro inferior y aplicar escala
+ctx.translate(canvas.width / 2, canvas.height * 0.75);
+ctx.scale(1.2, 1.2);
+ctx.lineWidth = 2;
+
+function animateSteps(steps, delay = 400) {
   let i = 0;
   function next() {
     if (i < steps.length) {
@@ -18,63 +20,62 @@ function animateSteps(steps, delay = 350) {
 function drawTulip() {
   const steps = [];
 
-  // Paso 1: hoja izquierda
+  // Hoja izquierda
   steps.push(() => {
     ctx.beginPath();
     ctx.fillStyle = "#00FF00";
-    ctx.moveTo(0, 250);
-    ctx.bezierCurveTo(-150, 100, -100, -100, 0, -200);
-    ctx.lineTo(0, 250);
+    ctx.moveTo(0, 150);
+    ctx.bezierCurveTo(-120, 60, -90, -80, 0, -160);
+    ctx.lineTo(0, 150);
     ctx.fill();
   });
 
-  // Paso 2: hoja derecha
+  // Hoja derecha
   steps.push(() => {
     ctx.beginPath();
-    ctx.moveTo(0, 250);
-    ctx.bezierCurveTo(150, 100, 100, -100, 0, -200);
-    ctx.lineTo(0, 250);
+    ctx.moveTo(0, 150);
+    ctx.bezierCurveTo(120, 60, 90, -80, 0, -160);
+    ctx.lineTo(0, 150);
     ctx.fill();
   });
 
-  // Paso 3: tallo
+  // Tallo
   steps.push(() => {
     ctx.beginPath();
-    ctx.fillStyle = "#00CC00";
-    ctx.moveTo(-7, -200);
-    ctx.lineTo(-7, -400);
-    ctx.lineTo(7, -400);
-    ctx.lineTo(7, -200);
-    ctx.lineTo(0, -180);
+    ctx.fillStyle = "#00AA00";
+    ctx.moveTo(-6, -160);
+    ctx.lineTo(-6, -320);
+    ctx.lineTo(6, -320);
+    ctx.lineTo(6, -160);
     ctx.closePath();
     ctx.fill();
   });
 
-  // Paso 4: pétalo izquierdo
+  // Pétalo izquierdo
   steps.push(() => {
     ctx.beginPath();
     ctx.fillStyle = "#FF00FF";
-    ctx.moveTo(0, -400);
-    ctx.bezierCurveTo(-40, -460, -60, -520, 0, -560);
-    ctx.bezierCurveTo(-20, -500, -10, -440, 0, -400);
+    ctx.moveTo(0, -320);
+    ctx.bezierCurveTo(-30, -370, -50, -430, 0, -480);
+    ctx.bezierCurveTo(-20, -440, -10, -380, 0, -320);
     ctx.fill();
   });
 
-  // Paso 5: pétalo derecho
+  // Pétalo derecho
   steps.push(() => {
     ctx.beginPath();
-    ctx.moveTo(0, -400);
-    ctx.bezierCurveTo(40, -460, 60, -520, 0, -560);
-    ctx.bezierCurveTo(20, -500, 10, -440, 0, -400);
+    ctx.moveTo(0, -320);
+    ctx.bezierCurveTo(30, -370, 50, -430, 0, -480);
+    ctx.bezierCurveTo(20, -440, 10, -380, 0, -320);
     ctx.fill();
   });
 
-  // Paso 6: pétalo central
+  // Pétalo central
   steps.push(() => {
     ctx.beginPath();
-    ctx.moveTo(0, -400);
-    ctx.bezierCurveTo(-10, -480, -10, -520, 0, -550);
-    ctx.bezierCurveTo(10, -520, 10, -480, 0, -400);
+    ctx.moveTo(0, -320);
+    ctx.bezierCurveTo(-10, -400, -10, -440, 0, -470);
+    ctx.bezierCurveTo(10, -440, 10, -400, 0, -320);
     ctx.fill();
   });
 
