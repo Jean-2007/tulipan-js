@@ -1,6 +1,5 @@
-const canvas = document.getElementById("canvas");
-const ctx = canvas ? canvas.getContext("2d") : null;
-
+let canvas;
+let ctx;
 let animationId;
 let time = 0;
 let isAnimating = false;
@@ -22,6 +21,8 @@ function animateSteps(steps, delay = 300) {
 }
 
 function drawTulipFlower(x, y, size = 1, rotation = 0, windOffset = 0) {
+  if (!ctx) return;
+  
   ctx.save();
   ctx.translate(x, y);
   ctx.rotate(rotation + windOffset);
@@ -75,6 +76,8 @@ function drawTulipFlower(x, y, size = 1, rotation = 0, windOffset = 0) {
 }
 
 function drawLeaf(x, y, width, height, rotation, color, windOffset = 0) {
+  if (!ctx) return;
+  
   ctx.save();
   ctx.translate(x, y);
   ctx.rotate(rotation + windOffset);
@@ -100,6 +103,8 @@ function drawLeaf(x, y, width, height, rotation, color, windOffset = 0) {
 }
 
 function drawStem(startX, startY, endX, endY, windOffset = 0) {
+  if (!ctx) return;
+  
   ctx.save();
   ctx.translate(0, windOffset * 2);
   ctx.fillStyle = '#588157';
@@ -175,7 +180,7 @@ function drawTulipanes() {
 }
 
 function animateWind() {
-  if (!isAnimating) return;
+  if (!isAnimating || !ctx) return;
   
   time += 0.02;
   clearCanvas();
@@ -233,13 +238,17 @@ function stopWindAnimation() {
 
 // Función de inicialización
 function init() {
+  // Obtener el canvas después de que el DOM esté cargado
+  canvas = document.getElementById("canvas");
+  ctx = canvas ? canvas.getContext("2d") : null;
+  
   // Verificar que el canvas existe
   if (!canvas || !ctx) {
     console.error('Canvas no encontrado');
     return;
   }
   
-  console.log('Iniciando aplicación de tulipanes...');
+  console.log('Canvas encontrado, iniciando aplicación de tulipanes...');
   drawTulipanes();
   
   // Iniciar la animación de brisa después de un momento
