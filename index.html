@@ -3,24 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tulipán Detallado</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    canvas {
-      background-color: black;
-    }
-  </style>
+  <title>Tulipanes Minimalistas</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="controls">
+    <button onclick="drawTulipanes()">🌷 Dibujar Tulipanes</button>
+    <button onclick="startWindAnimation()">💨 Activar Brisa</button>
+    <button onclick="stopWindAnimation()">⏸️ Detener Brisa</button>
+    <button onclick="clearCanvas()">✨ Limpiar</button>
+  </div>
   <canvas id="canvas" width="600" height="800"></canvas>
+  
   <script src="tulipan.js"></script>
 </body>
 </html>
-
