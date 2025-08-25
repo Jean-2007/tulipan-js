@@ -1,11 +1,12 @@
 const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const ctx = canvas ? canvas.getContext("2d") : null;
 
 let animationId;
 let time = 0;
 let isAnimating = false;
 
 function clearCanvas() {
+  if (!ctx) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
@@ -112,7 +113,13 @@ function drawStem(startX, startY, endX, endY, windOffset = 0) {
 }
 
 function drawTulipanes() {
+  if (!ctx) {
+    console.error('Context no disponible');
+    return;
+  }
+  
   clearCanvas();
+  console.log('Dibujando tulipanes...');
   
   const steps = [];
   
@@ -224,12 +231,28 @@ function stopWindAnimation() {
   }
 }
 
-// Dibujar automáticamente al cargar
-window.addEventListener('load', () => {
+// Función de inicialización
+function init() {
+  // Verificar que el canvas existe
+  if (!canvas || !ctx) {
+    console.error('Canvas no encontrado');
+    return;
+  }
+  
+  console.log('Iniciando aplicación de tulipanes...');
   drawTulipanes();
   
   // Iniciar la animación de brisa después de un momento
   setTimeout(() => {
     startWindAnimation();
   }, 2500);
-});
+}
+
+// Múltiples eventos para asegurar que se carga
+document.addEventListener('DOMContentLoaded', init);
+window.addEventListener('load', init);
+
+// También ejecutar inmediatamente por si ya está cargado
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  setTimeout(init, 100);
+}
