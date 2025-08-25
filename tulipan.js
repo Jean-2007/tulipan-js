@@ -87,7 +87,7 @@ function drawLeaf(x, y, width, height, rotation, color, windOffset = 0) {
   ctx.beginPath();
   ctx.moveTo(0, 0);
   ctx.bezierCurveTo(-width/3, -height/4, -width/2, -height/2, -width/4, -height);
-  ctx.bezierCurveTo(0, -height + 10, width/4, -height);
+ ctx.bezierCurveTo(0, -height + 10, 0, -height + 5, width/4, -height);
   ctx.bezierCurveTo(width/2, -height/2, width/3, -height/4, 0, 0);
   ctx.fill();
   
@@ -95,8 +95,7 @@ function drawLeaf(x, y, width, height, rotation, color, windOffset = 0) {
   ctx.strokeStyle = color === '#7fb069' ? '#6a994e' : '#7fb069';
   ctx.lineWidth = 2;
   ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.bezierCurveTo(0, -height/3, 0, -height/2, 0, -height + 15);
+  ctx.moveTo(0, 0);ctx.quadraticCurveTo(0, -height/2, 0, -height + 15);
   ctx.stroke();
   
   ctx.restore();
